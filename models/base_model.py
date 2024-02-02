@@ -2,9 +2,8 @@
 """
 This module defines the BaseModel class, parent for all other classes
 """
-import datetime
+from datetime import datetime
 import uuid
-
 
 class BaseModel:
 
@@ -19,17 +18,17 @@ class BaseModel:
     def __str__(self):
         print("[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__))
 
-    @property
     def save(self):
         """
         Updates updated_at with current datetime
         """
         self.updated_at = datetime.datetime.now()
 
-
-    @property
     def to_dict(self):
         """
         Returns a dictionary containing all keys/values of __dict__ of instance
         """
+        self.__dict__['__class__']: self.__class__.__name__
+        self.created_at = self.created_at.isoformat()
+        self.updated_at = self.updated_at.isoformat()
         return self.__dict__

@@ -3,18 +3,14 @@
 This module contains the FileStorage class
 """
 import json
+import os
 from models.base_model import BaseModel
 
 
 class FileStorage:
 
-    def __init__(self):
-        """
-        Initialization of FileStorage
-        """
-        filename = "{}.json".format(self.__name__)
-        __file_path = ...
-        __objects = ...
+    __file_path = "{}.json".format(__name__)
+    __objects = {}
 
     def all(self):
         """

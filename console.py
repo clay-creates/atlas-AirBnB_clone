@@ -32,4 +32,4 @@ class HBNBCommand(cmd.Cmd):
             print("  ", command)
 
 if __name__ == "__main__":
-    HBNBCommand().cmdloop
+    HBNBCommand().cmdloop()

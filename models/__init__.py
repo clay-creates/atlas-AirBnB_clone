@@ -2,7 +2,7 @@
 """
 Create a unique FileStorage instance for application
 """
-from . import FileStorage
+from .engine.file_storage import FileStorage
 
 
 storage = FileStorage()

@@ -4,7 +4,7 @@ This module defines the BaseModel class, parent for all other classes
 """
 from datetime import datetime
 import uuid
-from .engine.file_storage import storage
+import models
 
 
 class BaseModel:
@@ -13,8 +13,6 @@ class BaseModel:
         """
         Initialization for BaseModel
         """
-        if not kwargs:
-            storage.new(self)
         if kwargs:
             for key, value in kwargs.items():
                 if key != '__class__':
@@ -26,6 +24,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+            models.storage.new(self)
 
     def __str__(self):
         return ("[{}] ({}) {}".format(self.__class__.__name__,
@@ -36,7 +35,8 @@ class BaseModel:
         Updates updated_at with current datetime
         """
         self.updated_at = datetime.now()
-        storage.save(self)
+        models.storage.new(self)
+        models.storage.save()
 
     def to_dict(self):
         """

@@ -31,7 +31,7 @@ class FileStorage:
         Serialized __objects to JSON file path
         """
         with open(self.__file_path, 'w') as f:
-            json.dump(self.__objects, f)
+            f.write(json.dumps(self.__objects))
 
     def reload(self):
         """

@@ -4,6 +4,7 @@ This module defines the BaseModel class, parent for all other classes
 """
 from datetime import datetime
 import uuid
+from . import storage
 
 
 class BaseModel:
@@ -12,6 +13,8 @@ class BaseModel:
         """
         Initialization for BaseModel
         """
+        if not kwargs:
+            storage.new(self)
         if kwargs:
             for key, value in kwargs.items():
                 if key != '__class__':
@@ -33,6 +36,7 @@ class BaseModel:
         Updates updated_at with current datetime
         """
         self.updated_at = datetime.now()
+        storage.save(self)
 
     def to_dict(self):
         """

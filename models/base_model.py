@@ -4,7 +4,7 @@ This module defines the BaseModel class, parent for all other classes
 """
 from datetime import datetime
 import uuid
-from . import storage
+from .engine.file_storage import storage
 
 
 class BaseModel:

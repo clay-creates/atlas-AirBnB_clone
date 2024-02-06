@@ -52,32 +52,126 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """
         Creates new instance and saves it to storage. Prints instance id.
+        Usage: create <class name>
         """
-        ...
+        args = args.split()
+        if len(args) < 1:
+            print("** class name missing **")
+            return
+
+        class_name = args[0]
+
+        if class_name not in self.__classes:
+            print("** class doesn't exist **")
+
+        new_inst = self.__classes[class_name]()
+        storage.new(new_inst)
+        storage.save()
+        print(new_inst.id)
 
     def do_show(self, args):
         """
         Prints string representation of instance based on class name and id
+        Usage: show <class_name> <instance_id>
         """
-        ...
+        args = args.split()
+        if len(args) < 2:
+            print("** class name or instance id missing **")
+            return
+
+        class_name, instance_id = args
+
+        if class_name not in self.__classes:
+            print("** class doen't exist **")
+            return
+
+        cls = self.__classes[class_name]
+        instance = storage.get(cls, instance_id)
+
+        if instance is None:
+            print("** no instance found **")
+            return
+
+        print(str(instance))
 
     def do_destroy(self, args):
         """
         Deletes an instance based on the class name and id. Saves to storage.
+        Usage: destroy <class_name> <instance_id>
         """
-        ...
+        args = args.split()
+        if len(args) < 2:
+            print("** class name or instance id missing **")
+            return
+
+        class_name, instance_id = args
+
+        if class_name not in self.__classes:
+            print("** class doesn't exist **")
+            return
+
+        cls = self.__classes[class_name]
+        instance = storage.get(cls, instance_id)
+
+        if instance in None:
+            print("** no instance found **")
+            return
+
+        storage.delete(cls, instance_id)
+        storage.save()
+        print("** instance deleted **")
 
     def do_all(self, args):
         """
         Prints the string representation of all instances based or not on the class name
+        Usage: all [<class_name>]
         """
-        ...
+        args = args.split()
+        if args:
+            if args not in self.__classes:
+                print("** class doesn't exist **")
+                return
+            instances = storage.all(self.__classes[args])
+        else:
+            instances = storage.all
+
+        for instance in instances:
+            print(str(instance))
 
     def do_update(self, args):
         """
         Updates instance based on class name and id by adding or updating attribute. Saves to storage.
+        Useage: update <class_name> <instance_id> <attribut_name> "<attribute_value>"
         """
-        ...
+        args = args.split()
+        if len(args) < 4:
+            print("** attribute name or value missing **")
+            return
+
+        class_name, instance_id, attr_name, attr_val = args
+
+        if class_name not in self.__classes:
+            print("** class doesn't exist **")
+            return
+
+        cls = self.__classes[class_name]
+        instance = storage.get(cls, instance_id)
+
+        if instance is None:
+            print("** no instance found **")
+            return
+
+        try:
+            if attr_val.isdigit():
+                attr_val = int(attr_val)
+            elif attr_val.replace('.', '', 1).isdigit():
+                attr_val = float(attr_val)
+        except ValueError:
+            pass
+
+        setattr(instance, attr_name, attr_val)
+        instance.save()
+        print("** instance updated successfully **")
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

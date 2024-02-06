@@ -55,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: create <class name>
         """
         args = args.split()
-        if len(args) != 1:
+        if not args:
             print("** class name missing **")
             return
 

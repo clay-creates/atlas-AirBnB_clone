@@ -55,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: create <class name>
         """
         args = args.split()
-        if len(args) < 1:
+        if len(args) != 1:
             print("** class name missing **")
             return
 
@@ -75,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: show <class_name> <instance_id>
         """
         args = args.split()
-        if len(args) < 2:
+        if len(args) != 2:
             print("** class name or instance id missing **")
             return
 
@@ -100,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: destroy <class_name> <instance_id>
         """
         args = args.split()
-        if len(args) < 2:
+        if len(args) != 2:
             print("** class name or instance id missing **")
             return
 
@@ -144,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
         Useage: update <class_name> <instance_id> <attribut_name> "<attribute_value>"
         """
         args = args.split()
-        if len(args) < 4:
+        if len(args) != 4:
             print("** attribute name or value missing **")
             return
 

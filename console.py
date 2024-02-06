@@ -63,6 +63,7 @@ class HBNBCommand(cmd.Cmd):
 
         if class_name not in self.__classes:
             print("** class doesn't exist **")
+            return
 
         new_inst = self.__classes[class_name]()
         storage.new(new_inst)

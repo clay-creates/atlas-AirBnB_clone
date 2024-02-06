@@ -87,12 +87,12 @@ class HBNBCommand(cmd.Cmd):
             return
 
         storage.reload()
+        instances = storage.all()
         instance = None
-        for key, value in storage.__objects.items():
-            if key.startswith(f"{class_name}."):
-                if value.id == instance_id:
-                    instance = value
-                    break
+        for inst in instances:
+            if type(inst).__name__ == class_name and inst.id == instance_id:
+                instance = inst
+                break
 
         if instance is None:
             print("** no instance found **")
@@ -117,12 +117,12 @@ class HBNBCommand(cmd.Cmd):
             return
 
         storage.reload()
+        instances = storage.all()
         instance = None
-        for key, value in storage.__objects.items():
-            if key.startswith(f"{class_name}."):
-                if value.id == instance_id:
-                    instance = value
-                    break
+        for inst in instances:
+            if type(inst).__name__ == class_name and inst.id == instance_id:
+                instance = inst
+                break
 
         if instance is None:
             print("** no instance found **")
@@ -166,12 +166,12 @@ class HBNBCommand(cmd.Cmd):
             return
 
         storage.reload()
+        instances = storage.all()
         instance = None
-        for key, value in storage.__objects.items():
-            if key.startswith(f"{class_name}."):
-                if value.id == instance_id:
-                    instance = value
-                    break
+        for inst in instances:
+            if type(inst).__name__ == class_name and inst.id == instance_id:
+                instance = inst
+                break
 
         if instance is None:
             print("** no instance found **")

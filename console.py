@@ -86,8 +86,13 @@ class HBNBCommand(cmd.Cmd):
             print("** class doen't exist **")
             return
 
-        cls = self.__classes[class_name]
-        instance = storage.get(cls, instance_id)
+        storage.reload()
+        instance = None
+        for key, value in storage.__objects.items():
+            if key.startswith(f"{class_name}."):
+                if value.id == instance_id:
+                    instance = value
+                    break
 
         if instance is None:
             print("** no instance found **")
@@ -111,14 +116,19 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        cls = self.__classes[class_name]
-        instance = storage.get(cls, instance_id)
+        storage.reload()
+        instance = None
+        for key, value in storage.__objects.items():
+            if key.startswith(f"{class_name}."):
+                if value.id == instance_id:
+                    instance = value
+                    break
 
-        if instance in None:
+        if instance is None:
             print("** no instance found **")
             return
 
-        storage.delete(cls, instance_id)
+        del storage.__objects[key]
         storage.save()
         print("** instance deleted **")
 
@@ -155,8 +165,13 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        cls = self.__classes[class_name]
-        instance = storage.get(cls, instance_id)
+        storage.reload()
+        instance = None
+        for key, value in storage.__objects.items():
+            if key.startswith(f"{class_name}."):
+                if value.id == instance_id:
+                    instance = value
+                    break
 
         if instance is None:
             print("** no instance found **")

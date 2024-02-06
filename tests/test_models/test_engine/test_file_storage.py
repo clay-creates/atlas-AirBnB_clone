@@ -6,6 +6,7 @@ import unittest
 import os
 import json
 from datetime import datetime
+import uuid
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models.user import User
@@ -36,6 +37,18 @@ class TestFileStorage(unittest.TestCase):
         with open(self.file_path, 'r') as file:
             data = json.load(file)
         self.assertIn("User.1", data)
+
+    def test_base_model_save(self):
+        """Test BaseModel save method"""
+        model_instance = BaseModel()
+        model_instance.id = str(uuid.uuid4())
+        model_instance.created_at = datetime.now()
+        model_instance.updated_at =  model_instance.created_at
+        model_instance.save()
+        self.storage.reload()
+        stored_instance = self.storage.all().get(f"{model_instance.__class__.__name__}.{model_instance.id}")
+        self.assertIsNone(stored_instance, "The instance should be present in storage after the save.")
+        self.assertIsInstance(stored_instance, type(model_instance))
 
     def test_reload(self):
         """Test reloading from save"""

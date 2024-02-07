@@ -40,11 +40,11 @@ class TestFileStorage(unittest.TestCase):
         model_instance = BaseModel()
         model_instance.id = str(uuid.uuid4())
         model_instance.created_at = datetime.now()
-        model_instance.updated_at =  model_instance.created_at
+        model_instance.updated_at = model_instance.created_at
         model_instance.save()
         self.storage.reload()
         stored_instance = self.storage.all().get(f"{model_instance.__class__.__name__}.{model_instance.id}")
-        self.assertIsNone(stored_instance, "The instance should be present in storage after the save.")
+        self.assertIsNotNone(stored_instance, "The instance should be present in storage after the save.")
         self.assertIsInstance(stored_instance, type(model_instance))
 
     def test_reload(self):

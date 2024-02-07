@@ -3,6 +3,7 @@
 Module containing the console, entry point for command interpreter
 """
 import cmd
+import uuid
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -66,7 +67,6 @@ class HBNBCommand(cmd.Cmd):
             return
 
         new_inst = self.__classes[class_name]()
-        storage.new(new_inst)
         storage.save()
         print(new_inst.id)
 
@@ -89,8 +89,9 @@ class HBNBCommand(cmd.Cmd):
         storage.reload()
         instances = storage.all()
         instance = None
-        for inst in instances:
-            if type(inst).__name__ == class_name and inst.id == instance_id:
+        for key, inst in instances.items():
+            cls_name, _ = key.split(".")
+            if cls_name == class_name and inst.id == instance_id:
                 instance = inst
                 break
 
@@ -119,16 +120,19 @@ class HBNBCommand(cmd.Cmd):
         storage.reload()
         instances = storage.all()
         instance = None
-        for inst in instances:
-            if type(inst).__name__ == class_name and inst.id == instance_id:
+        key_to_delete = None
+        for key, inst in instances.items():
+            cls_name, _ = key.split(".")
+            if cls_name == class_name and inst.id == instance_id:
                 instance = inst
+                key_to_delete = key
                 break
 
         if instance is None:
             print("** no instance found **")
             return
 
-        del storage.__objects[key]
+        instances.pop(key_to_delete, None)
         storage.save()
         print("** instance deleted **")
 
@@ -139,12 +143,13 @@ class HBNBCommand(cmd.Cmd):
         """
         args = args.split()
         if args:
-            if args not in self.__classes:
+            if args[0] not in self.__classes:
                 print("** class doesn't exist **")
                 return
-            instances = storage.all(self.__classes[args])
+            class_name = args[0]
+            instances = storage.all(class_name)
         else:
-            instances = storage.all
+            instances = storage.all()
 
         for instance in instances:
             print(str(instance))
@@ -168,8 +173,9 @@ class HBNBCommand(cmd.Cmd):
         storage.reload()
         instances = storage.all()
         instance = None
-        for inst in instances:
-            if type(inst).__name__ == class_name and inst.id == instance_id:
+        for key, inst in instances.items():
+            cls_name, _ = key.split(".")
+            if cls_name == class_name and inst.id == instance_id:
                 instance = inst
                 break
 

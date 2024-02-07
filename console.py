@@ -138,7 +138,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """
-        Prints the string representation of all instances based or not on the class name
+        Prints the string representation of all instances
+        based or not on the class name
+
         Usage: all [<class_name>]
         """
         args = args.split()
@@ -156,8 +158,11 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, args):
         """
-        Updates instance based on class name and id by adding or updating attribute. Saves to storage.
-        Useage: update <class_name> <instance_id> <attribut_name> "<attribute_value>"
+        Updates instance based on class name and id
+        by adding or updating attribute. Saves to storage.
+
+        Useage: update <class_name> <instance_id>
+        <attribut_name> "<attribute_value>"
         """
         args = args.split()
         if len(args) != 4:
@@ -194,6 +199,7 @@ class HBNBCommand(cmd.Cmd):
         setattr(instance, attr_name, attr_val)
         instance.save()
         print("** instance updated successfully **")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

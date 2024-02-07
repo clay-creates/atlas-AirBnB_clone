@@ -7,5 +7,5 @@ from models.base_model import BaseModel
 
 class City(BaseModel):
 
-    state_id = "" # will be State.id
+    state_id = ""  # will be State.id
     name = ""

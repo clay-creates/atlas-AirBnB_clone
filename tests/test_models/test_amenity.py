@@ -15,5 +15,6 @@ class TestAmenity(unittest.TestCase):
     def test_initialization(self):
         self.assertIsInstance(self.amenity_model.name, str)
 
+
 if __name__ == "__main__":
     unittest.main()

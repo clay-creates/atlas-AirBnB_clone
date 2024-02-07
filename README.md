@@ -66,6 +66,7 @@ Our console is built around several models that represent aspects of the AirBnB 
 - This model has fields for place_id (the place the user stayed at), user_id (the user who stayed there), and text (the actual content of the user's review)
 
 ### Engine
+![Alt text](AirBnB_storage_flowchart.jpg?raw=true)
 
 <strong>FileStorage</strong>
 The FileStorage engine is an incredibly important part of our console, and is responsible for managing the persistent storage of our data models. It operates in the background, enabling the console to create, retrieve, update, and delete instances without direct interaction.  

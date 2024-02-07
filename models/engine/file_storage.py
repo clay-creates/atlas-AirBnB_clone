@@ -59,3 +59,7 @@ class FileStorage:
         #         content = json.loads(file.read())
         #     for key, value in content.items():
         #         self.__objects[key] = eval(key.split(".")[0])(**value)
+        
+    @property
+    def file_path(self):
+        return self.__file_path

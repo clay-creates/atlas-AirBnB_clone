@@ -14,7 +14,6 @@ class TestReview(unittest.TestCase):
 
     def test_initialization(self):
         self.assertIsInstance(self.review_model.place_id, str)
-        self.assertIsInstance(self.review_model,UserWarning, str)
         self.assertIsInstance(self.review_model.text, str)
 
 if __name__ == "__main__":

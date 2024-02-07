@@ -55,6 +55,7 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
+
 @property
 def file_path(self):
     return self.__file_path

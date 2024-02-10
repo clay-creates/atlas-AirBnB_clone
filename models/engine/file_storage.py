@@ -14,14 +14,15 @@ from models.review import Review
 
 
 class FileStorage:
-
     __objects = {}
     __file_path = "file.json"
 
-    def all(*args, **kwargs):
+    def all(self, class_name=None):
         """
-        Returns the dictionary __objects
+        Returns the dictionary __objects. Optionally filters by class_name.
         """
+        if class_name is not None:
+            pass
         return self.__objects
 
     def new(self, obj):

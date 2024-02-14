@@ -71,6 +71,10 @@
     font-size: 16px;
 }
 
+ul li {
+    list-style: none;
+}
+
 .locations:hover .popover {
     display: block;
     z-index: 100;
